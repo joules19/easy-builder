@@ -1,0 +1,142 @@
+name: Progress Tracker
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  issues:
+    types: [opened, closed, labeled]
+
+jobs:
+  track-progress:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests and generate coverage
+        run: npm run test:coverage || echo "No tests configured yet"
+
+      - name: Calculate project metrics
+        id: metrics
+        run: |
+          # Count completed features from PROGRESS.md
+          COMPLETED_FEATURES=$(grep -c "- \[x\]" PROGRESS.md || echo "0")
+          TOTAL_FEATURES=$(grep -c "- \[" PROGRESS.md || echo "1")
+          
+          # Calculate percentage
+          COMPLETION_PERCENT=$(( COMPLETED_FEATURES * 100 / TOTAL_FEATURES ))
+          
+          echo "completed_features=$COMPLETED_FEATURES" >> $GITHUB_OUTPUT
+          echo "total_features=$TOTAL_FEATURES" >> $GITHUB_OUTPUT
+          echo "completion_percent=$COMPLETION_PERCENT" >> $GITHUB_OUTPUT
+          
+          # Count lines of code (excluding node_modules, dist, .next)
+          LOC=$(find . -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" | grep -v node_modules | grep -v dist | grep -v .next | xargs wc -l | tail -1 | awk '{print $1}' || echo "0")
+          echo "lines_of_code=$LOC" >> $GITHUB_OUTPUT
+
+      - name: Update Progress Badge
+        if: github.ref == 'refs/heads/main'
+        run: |
+          # Create or update progress badge
+          COMPLETION_PERCENT="${{ steps.metrics.outputs.completion_percent }}"
+          
+          # Badge color based on completion
+          if [ $COMPLETION_PERCENT -lt 30 ]; then
+            COLOR="red"
+          elif [ $COMPLETION_PERCENT -lt 70 ]; then
+            COLOR="yellow"
+          else
+            COLOR="green"
+          fi
+          
+          # Update README.md with progress badge (if it exists)
+          if [ -f README.md ]; then
+            # Add progress badges to README
+            sed -i "1i ![Progress](https://img.shields.io/badge/Progress-${COMPLETION_PERCENT}%25-${COLOR})" README.md || echo "Could not update README"
+          fi
+
+      - name: Post progress comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const completedFeatures = ${{ steps.metrics.outputs.completed_features }};
+            const totalFeatures = ${{ steps.metrics.outputs.total_features }};
+            const completionPercent = ${{ steps.metrics.outputs.completion_percent }};
+            const linesOfCode = ${{ steps.metrics.outputs.lines_of_code }};
+            
+            const comment = `## 📊 Project Progress Update
+            
+            **Overall Completion:** ${completionPercent}% (${completedFeatures}/${totalFeatures} features)
+            **Lines of Code:** ${linesOfCode}
+            
+            ### Recent Changes
+            This PR affects the project progress. Please ensure:
+            - [ ] Feature implementation is complete
+            - [ ] Tests are updated
+            - [ ] Documentation is updated
+            - [ ] PROGRESS.md checkboxes are marked
+            
+            *Automated by Progress Tracker*`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+  weekly-report:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Generate Weekly Report
+        run: |
+          # Create weekly report
+          WEEK_START=$(date -d "last monday" +%Y-%m-%d)
+          WEEK_END=$(date +%Y-%m-%d)
+          
+          echo "# Weekly Progress Report ($WEEK_START to $WEEK_END)" > weekly-report.md
+          echo "" >> weekly-report.md
+          
+          # Get commits from this week
+          echo "## Commits This Week" >> weekly-report.md
+          git log --since="$WEEK_START" --oneline >> weekly-report.md || echo "No commits this week" >> weekly-report.md
+          echo "" >> weekly-report.md
+          
+          # Get closed issues this week
+          echo "## Completed Issues" >> weekly-report.md
+          echo "*Generated automatically*" >> weekly-report.md
+
+      - name: Create Issue for Weekly Report
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('weekly-report.md', 'utf8');
+            
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Weekly Progress Report - Week of ${new Date().toISOString().split('T')[0]}`,
+              body: report,
+              labels: ['report', 'weekly']
+            });
+
+# Uncomment to enable weekly reports
+# on:
+#   schedule:
+#     - cron: '0 9 * * MON'  # Every Monday at 9 AM
