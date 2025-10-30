@@ -1,0 +1,16 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+
+# Run TypeScript build check
+echo "📦 Building application..."
+npm run build
+
+if [ $? -ne 0 ]; then
+  echo "❌ Build failed! Please fix TypeScript errors before committing."
+  echo "💡 Tip: Run 'npm run build' locally to see detailed errors"
+  exit 1
+fi
+
+echo "✅ Build successful! Ready to commit."

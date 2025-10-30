@@ -1,10 +1,11 @@
-import { createServerClient } from '@/lib/supabase/server'
+import { createServerSupabaseClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { cache } from 'react'
+import type { Vendor } from '@/types/database'
 
 // Cache the authentication check for the duration of the request
 export const requireAuth = cache(async () => {
-  const supabase = createServerClient()
+  const supabase = createServerSupabaseClient()
   
   const {
     data: { session },
@@ -18,9 +19,9 @@ export const requireAuth = cache(async () => {
 })
 
 // Get current vendor for authenticated user
-export const getVendor = cache(async () => {
+export const getVendor = cache(async (): Promise<Vendor> => {
   const session = await requireAuth()
-  const supabase = createServerClient()
+  const supabase = createServerSupabaseClient()
   
   const { data: vendor, error } = await supabase
     .from('vendors')
@@ -37,9 +38,9 @@ export const getVendor = cache(async () => {
 })
 
 // Get vendor by ID (for dashboard access)
-export const getVendorById = cache(async (vendorId: string) => {
+export const getVendorById = cache(async (vendorId: string): Promise<Vendor> => {
   const session = await requireAuth()
-  const supabase = createServerClient()
+  const supabase = createServerSupabaseClient()
   
   const { data: vendor, error } = await supabase
     .from('vendors')
@@ -58,7 +59,7 @@ export const getVendorById = cache(async (vendorId: string) => {
 // Check if user has completed vendor setup
 export const checkVendorSetup = cache(async () => {
   const session = await requireAuth()
-  const supabase = createServerClient()
+  const supabase = createServerSupabaseClient()
   
   const { data: vendor } = await supabase
     .from('vendors')
@@ -68,14 +69,14 @@ export const checkVendorSetup = cache(async () => {
 
   return {
     hasVendor: !!vendor,
-    isActive: vendor?.status === 'active',
+    isActive: (vendor as any)?.status === 'active',
     vendor
   }
 })
 
 // Optional auth - for pages that work with or without auth
 export const getOptionalAuth = cache(async () => {
-  const supabase = createServerClient()
+  const supabase = createServerSupabaseClient()
   
   try {
     const {

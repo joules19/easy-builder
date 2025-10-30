@@ -162,6 +162,7 @@ export interface Database {
           display_order: number
           file_size: number | null
           mime_type: string | null
+          cloudinary_public_id: string | null
           created_at: string
         }
         Insert: {
@@ -172,6 +173,7 @@ export interface Database {
           display_order?: number
           file_size?: number | null
           mime_type?: string | null
+          cloudinary_public_id?: string | null
           created_at?: string
         }
         Update: {
@@ -182,6 +184,7 @@ export interface Database {
           display_order?: number
           file_size?: number | null
           mime_type?: string | null
+          cloudinary_public_id?: string | null
           created_at?: string
         }
       }

@@ -1,15 +1,16 @@
-import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
+import { createMiddlewareSupabaseClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next()
-  const supabase = createMiddlewareClient({ req, res })
+  const supabase = createMiddlewareSupabaseClient(req, res)
 
   // Refresh session if expired - required for Server Components
   const {
     data: { session },
   } = await supabase.auth.getSession()
+
 
   // Protect dashboard routes
   if (req.nextUrl.pathname.startsWith('/dashboard')) {
@@ -22,18 +23,33 @@ export async function middleware(req: NextRequest) {
 
   // Redirect authenticated users away from auth pages
   if (req.nextUrl.pathname.startsWith('/auth/')) {
-    if (session && !req.nextUrl.pathname.includes('/callback')) {
-      // Check if user has completed vendor setup
-      const { data: vendor } = await supabase
-        .from('vendors')
-        .select('id, status')
-        .eq('user_id', session.user.id)
-        .single()
+    // Always allow auth callback page
+    if (req.nextUrl.pathname.includes('/callback')) {
+      return res
+    }
 
-      if (!vendor) {
-        return NextResponse.redirect(new URL('/auth/setup-profile', req.url))
-      } else {
-        return NextResponse.redirect(new URL('/dashboard', req.url))
+    // If user is authenticated, redirect away from auth pages
+    if (session) {
+      // Don't allow access to login, signup, or other auth pages when already logged in
+      if (req.nextUrl.pathname === '/auth/login' || 
+          req.nextUrl.pathname === '/auth/signup') {
+        
+        // Check if user has completed vendor setup
+        try {
+          const { data: vendor, error } = await supabase
+            .from('vendors')
+            .select('id, status')
+            .eq('user_id', session.user.id)
+            .single()
+
+          if (error || !vendor) {
+            return NextResponse.redirect(new URL('/auth/setup-profile', req.url))
+          } else {
+            return NextResponse.redirect(new URL('/dashboard', req.url))
+          }
+        } catch (err) {
+          return NextResponse.redirect(new URL('/auth/setup-profile', req.url))
+        }
       }
     }
   }

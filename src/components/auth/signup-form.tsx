@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Eye, EyeOff, Loader2, Check } from 'lucide-react'
+import { Eye, EyeOff, Check } from 'lucide-react'
 import { validateEmail, validatePhone } from '@/lib/utils'
 
 interface FormData {
@@ -119,23 +119,26 @@ export function SignupForm() {
 
   if (success) {
     return (
-      <Card className="w-full max-w-md mx-auto">
-        <CardHeader className="text-center">
-          <div className="mx-auto bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-            <Check className="h-6 w-6 text-green-600" />
+      <Card className="w-full max-w-md mx-auto border-0 bg-background/95 backdrop-blur shadow-modern-xl">
+        <CardHeader className="text-center pb-8">
+          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-success/10 text-success ring-1 ring-success/20">
+            <Check className="h-8 w-8" />
           </div>
-          <CardTitle className="text-2xl">Check your email</CardTitle>
-          <CardDescription>
-            We've sent a confirmation link to <strong>{formData.email}</strong>
+          <CardTitle className="text-heading-lg text-foreground">Check your email</CardTitle>
+          <CardDescription className="text-muted-foreground">
+            We've sent a confirmation link to{' '}
+            <span className="font-medium text-foreground">{formData.email}</span>
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <p className="text-sm text-gray-600 text-center">
-            Click the link in the email to confirm your account and complete your registration.
+        <CardContent className="space-y-6">
+          <p className="text-body-sm text-muted-foreground text-center leading-relaxed">
+            Click the link in the email to confirm your account and complete your registration. 
+            The link will expire in 24 hours.
           </p>
           <Button 
             variant="outline" 
-            className="w-full"
+            size="lg"
+            className="w-full h-12"
             onClick={() => router.push('/auth/login')}
           >
             Back to Sign In
@@ -146,161 +149,172 @@ export function SignupForm() {
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl text-center">Create Account</CardTitle>
-        <CardDescription className="text-center">
+    <Card className="w-full max-w-md mx-auto border-0 bg-background/95 backdrop-blur shadow-modern-xl">
+      <CardHeader className="space-y-1 pb-8">
+        <CardTitle className="text-heading-lg text-center text-foreground">Create your account</CardTitle>
+        <CardDescription className="text-center text-muted-foreground">
           Start showcasing your products with a free catalog
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="businessName">Business Name</Label>
-            <Input
-              id="businessName"
-              placeholder="Enter your business name"
-              value={formData.businessName}
-              onChange={(e) => updateFormData('businessName', e.target.value)}
-              required
-              disabled={loading}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="Enter your email"
-              value={formData.email}
-              onChange={(e) => updateFormData('email', e.target.value)}
-              required
-              disabled={loading}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="phone">Phone Number</Label>
-            <Input
-              id="phone"
-              type="tel"
-              placeholder="Enter your phone number"
-              value={formData.phone}
-              onChange={(e) => updateFormData('phone', e.target.value)}
-              required
-              disabled={loading}
-            />
-          </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <div className="relative">
+      <CardContent className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid grid-cols-1 gap-6">
+            <div className="space-y-2">
+              <Label htmlFor="businessName" className="text-label-lg text-foreground">Business Name</Label>
               <Input
-                id="password"
-                type={showPassword ? 'text' : 'password'}
-                placeholder="Create a password (8+ characters)"
-                value={formData.password}
-                onChange={(e) => updateFormData('password', e.target.value)}
+                id="businessName"
+                placeholder="Your business name"
+                value={formData.businessName}
+                onChange={(e) => updateFormData('businessName', e.target.value)}
                 required
                 disabled={loading}
+                className="h-11 transition-all duration-200"
               />
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                onClick={() => setShowPassword(!showPassword)}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-label-lg text-foreground">Email address</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="name@example.com"
+                value={formData.email}
+                onChange={(e) => updateFormData('email', e.target.value)}
+                required
                 disabled={loading}
-              >
-                {showPassword ? (
-                  <EyeOff className="h-4 w-4" />
-                ) : (
-                  <Eye className="h-4 w-4" />
-                )}
-              </Button>
+                className="h-11 transition-all duration-200"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="phone" className="text-label-lg text-foreground">Phone Number</Label>
+              <Input
+                id="phone"
+                type="tel"
+                placeholder="Your phone number"
+                value={formData.phone}
+                onChange={(e) => updateFormData('phone', e.target.value)}
+                required
+                disabled={loading}
+                className="h-11 transition-all duration-200"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="password" className="text-label-lg text-foreground">Password</Label>
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Create a secure password"
+                  value={formData.password}
+                  onChange={(e) => updateFormData('password', e.target.value)}
+                  required
+                  disabled={loading}
+                  className="h-11 pr-12 transition-all duration-200"
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-sm"
+                  className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 text-muted-foreground hover:text-foreground"
+                  onClick={() => setShowPassword(!showPassword)}
+                  disabled={loading}
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </Button>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="confirmPassword" className="text-label-lg text-foreground">Confirm Password</Label>
+              <div className="relative">
+                <Input
+                  id="confirmPassword"
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  placeholder="Confirm your password"
+                  value={formData.confirmPassword}
+                  onChange={(e) => updateFormData('confirmPassword', e.target.value)}
+                  required
+                  disabled={loading}
+                  className="h-11 pr-12 transition-all duration-200"
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-sm"
+                  className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 text-muted-foreground hover:text-foreground"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  disabled={loading}
+                >
+                  {showConfirmPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </Button>
+              </div>
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="confirmPassword">Confirm Password</Label>
-            <div className="relative">
-              <Input
-                id="confirmPassword"
-                type={showConfirmPassword ? 'text' : 'password'}
-                placeholder="Confirm your password"
-                value={formData.confirmPassword}
-                onChange={(e) => updateFormData('confirmPassword', e.target.value)}
-                required
-                disabled={loading}
-              />
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                disabled={loading}
-              >
-                {showConfirmPassword ? (
-                  <EyeOff className="h-4 w-4" />
-                ) : (
-                  <Eye className="h-4 w-4" />
-                )}
-              </Button>
-            </div>
-          </div>
-
-          <div className="flex items-center space-x-2">
+          <div className="flex items-start space-x-3">
             <input
               id="terms"
               type="checkbox"
               checked={formData.agreeToTerms}
               onChange={(e) => updateFormData('agreeToTerms', e.target.checked)}
-              className="rounded border-gray-300"
+              className="mt-0.5 h-4 w-4 rounded border-border text-primary focus:ring-primary focus:ring-offset-0"
               disabled={loading}
             />
-            <Label htmlFor="terms" className="text-sm">
+            <Label htmlFor="terms" className="text-body-sm text-muted-foreground leading-relaxed">
               I agree to the{' '}
-              <Link href="/terms" className="text-blue-600 hover:underline">
+              <Link href="/terms" className="text-primary underline-offset-4 hover:underline">
                 Terms of Service
               </Link>{' '}
               and{' '}
-              <Link href="/privacy" className="text-blue-600 hover:underline">
+              <Link href="/privacy" className="text-primary underline-offset-4 hover:underline">
                 Privacy Policy
               </Link>
             </Label>
           </div>
 
           {error && (
-            <div className="text-sm text-red-600 bg-red-50 p-3 rounded-md border border-red-200">
+            <div className="text-body-sm text-destructive-foreground bg-destructive/10 p-4 rounded-lg border border-destructive/20 animate-fade-in">
               {error}
             </div>
           )}
 
           <Button 
             type="submit" 
-            className="w-full" 
+            size="lg"
+            variant="gradient"
+            className="w-full h-12" 
             disabled={loading}
+            loading={loading}
           >
-            {loading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Creating Account...
-              </>
-            ) : (
-              'Create Account'
-            )}
+            {loading ? 'Creating Account...' : 'Create Account'}
           </Button>
         </form>
 
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600">
-            Already have an account?{' '}
-            <Link href="/auth/login" className="text-blue-600 hover:underline font-medium">
-              Sign in
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-border" />
+          </div>
+          <div className="relative flex justify-center text-label-sm">
+            <span className="bg-background px-2 text-muted-foreground">Already have an account?</span>
+          </div>
+        </div>
+
+        <div className="text-center">
+          <Button asChild variant="outline" size="lg" className="w-full h-12">
+            <Link href="/auth/login">
+              Sign in instead
             </Link>
-          </p>
+          </Button>
         </div>
       </CardContent>
     </Card>

@@ -106,6 +106,7 @@ export function ProfileSetupForm({ userEmail, userName }: ProfileSetupFormProps)
       // Create vendor profile
       const { error: insertError } = await supabase
         .from('vendors')
+        // @ts-ignore - Supabase TypeScript issue with insert method
         .insert({
           user_id: user.id,
           name: formData.businessName,

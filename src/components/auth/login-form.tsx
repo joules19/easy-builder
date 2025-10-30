@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Eye, EyeOff, Loader2 } from 'lucide-react'
+import { Eye, EyeOff } from 'lucide-react'
 
 export function LoginForm() {
   const [email, setEmail] = useState('')
@@ -64,30 +64,31 @@ export function LoginForm() {
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl text-center">Sign in</CardTitle>
-        <CardDescription className="text-center">
-          Enter your email and password to access your account
+    <Card className="w-full max-w-md mx-auto border-0 bg-background/95 backdrop-blur shadow-modern-xl">
+      <CardHeader className="space-y-1 pb-8">
+        <CardTitle className="text-heading-lg text-center text-foreground">Sign in to your account</CardTitle>
+        <CardDescription className="text-center text-muted-foreground">
+          Enter your credentials to access your dashboard
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <form onSubmit={handleLogin} className="space-y-4">
+      <CardContent className="space-y-6">
+        <form onSubmit={handleLogin} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email" className="text-label-lg text-foreground">Email address</Label>
             <Input
               id="email"
               type="email"
-              placeholder="Enter your email"
+              placeholder="name@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
               disabled={loading}
+              className="h-11 transition-all duration-200"
             />
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password" className="text-label-lg text-foreground">Password</Label>
             <div className="relative">
               <Input
                 id="password"
@@ -97,12 +98,13 @@ export function LoginForm() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 disabled={loading}
+                className="h-11 pr-12 transition-all duration-200"
               />
               <Button
                 type="button"
                 variant="ghost"
-                size="icon"
-                className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                size="icon-sm"
+                className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 text-muted-foreground hover:text-foreground"
                 onClick={() => setShowPassword(!showPassword)}
                 disabled={loading}
               >
@@ -116,43 +118,47 @@ export function LoginForm() {
           </div>
 
           {error && (
-            <div className="text-sm text-red-600 bg-red-50 p-3 rounded-md border border-red-200">
+            <div className="text-body-sm text-destructive-foreground bg-destructive/10 p-4 rounded-lg border border-destructive/20 animate-fade-in">
               {error}
             </div>
           )}
 
           <Button 
             type="submit" 
-            className="w-full" 
+            size="lg"
+            variant="gradient"
+            className="w-full h-12" 
             disabled={loading || !email || !password}
+            loading={loading}
           >
-            {loading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Signing in...
-              </>
-            ) : (
-              'Sign in'
-            )}
+            {loading ? 'Signing in...' : 'Sign in'}
           </Button>
 
-          <div className="text-center space-y-2">
+          <div className="text-center">
             <Link 
               href="/auth/forgot-password" 
-              className="text-sm text-blue-600 hover:underline"
+              className="text-label-lg text-muted-foreground hover:text-primary transition-colors underline-offset-4 hover:underline"
             >
               Forgot your password?
             </Link>
           </div>
         </form>
 
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600">
-            Don't have an account?{' '}
-            <Link href="/auth/signup" className="text-blue-600 hover:underline font-medium">
-              Sign up
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-border" />
+          </div>
+          <div className="relative flex justify-center text-label-sm">
+            <span className="bg-background px-2 text-muted-foreground">New to EasyBuilder?</span>
+          </div>
+        </div>
+
+        <div className="text-center">
+          <Button asChild variant="outline" size="lg" className="w-full h-12">
+            <Link href="/auth/signup">
+              Create an account
             </Link>
-          </p>
+          </Button>
         </div>
       </CardContent>
     </Card>

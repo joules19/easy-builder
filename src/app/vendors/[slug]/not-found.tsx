@@ -32,12 +32,12 @@ export default function VendorNotFound() {
               </Link>
             </Button>
 
-            <Button asChild variant="outline" className="w-full">
+            {/* <Button asChild variant="outline" className="w-full">
               <Link href="/vendors">
                 <Search className="h-4 w-4 mr-2" />
                 Browse All Vendors
               </Link>
-            </Button>
+            </Button> */}
           </div>
 
           {/* Help Text */}

@@ -13,216 +13,218 @@ export default async function DashboardPage() {
   const vendor = await getVendor()
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white border-b">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Store className="h-8 w-8 text-blue-600" />
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-                <p className="text-gray-600">{vendor.name}</p>
-              </div>
+    <div className="p-4 lg:p-6 xl:p-8 space-y-6 lg:space-y-8">
+      {/* Welcome Section */}
+      <div className="space-y-2">
+        <h2 className="text-heading-xl lg:text-display-sm font-bold text-foreground">
+          Welcome back!
+        </h2>
+        <p className="text-body-md lg:text-body-lg text-muted-foreground">
+          Manage your product catalog and track your performance from here.
+        </p>
+      </div>
+
+      {/* Quick Stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+        <Card className="border-0 bg-gradient-to-br from-chart-1/5 to-chart-1/10 hover:from-chart-1/10 hover:to-chart-1/20 transition-all duration-300">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-label-md lg:text-label-lg font-medium text-foreground">Total Products</CardTitle>
+            <div className="flex h-8 w-8 lg:h-10 lg:w-10 items-center justify-center rounded-xl bg-chart-1/10 text-chart-1">
+              <Package className="h-4 w-4 lg:h-5 lg:w-5" />
             </div>
-            <div className="flex items-center space-x-4">
-              <Button asChild>
-                <Link href={`/vendors/${vendor.slug}`} target="_blank">
-                  View Your Page
-                </Link>
-              </Button>
+          </CardHeader>
+          <CardContent>
+            <div className="text-heading-lg lg:text-display-sm font-bold text-foreground">0</div>
+            <p className="text-label-sm text-muted-foreground mt-1">
+              +0 from last month
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="border-0 bg-gradient-to-br from-chart-2/5 to-chart-2/10 hover:from-chart-2/10 hover:to-chart-2/20 transition-all duration-300">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-label-md lg:text-label-lg font-medium text-foreground">QR Scans</CardTitle>
+            <div className="flex h-8 w-8 lg:h-10 lg:w-10 items-center justify-center rounded-xl bg-chart-2/10 text-chart-2">
+              <QrCode className="h-4 w-4 lg:h-5 lg:w-5" />
             </div>
-          </div>
-        </div>
-      </header>
+          </CardHeader>
+          <CardContent>
+            <div className="text-heading-lg lg:text-display-sm font-bold text-foreground">{vendor.qr_scan_count}</div>
+            <p className="text-label-sm text-muted-foreground mt-1">
+              +0 from last month
+            </p>
+          </CardContent>
+        </Card>
 
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
-        {/* Welcome Section */}
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome back, {vendor.name}!
-          </h2>
-          <p className="text-gray-600">
-            Manage your product catalog and track your performance from here.
-          </p>
-        </div>
+        <Card className="border-0 bg-gradient-to-br from-chart-4/5 to-chart-4/10 hover:from-chart-4/10 hover:to-chart-4/20 transition-all duration-300">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-label-md lg:text-label-lg font-medium text-foreground">Page Views</CardTitle>
+            <div className="flex h-8 w-8 lg:h-10 lg:w-10 items-center justify-center rounded-xl bg-chart-4/10 text-chart-4">
+              <BarChart3 className="h-4 w-4 lg:h-5 lg:w-5" />
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="text-heading-lg lg:text-display-sm font-bold text-foreground">0</div>
+            <p className="text-label-sm text-muted-foreground mt-1">
+              +0 from last month
+            </p>
+          </CardContent>
+        </Card>
 
-        {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Products</CardTitle>
-              <Package className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">0</div>
-              <p className="text-xs text-muted-foreground">
-                +0 from last month
-              </p>
-            </CardContent>
-          </Card>
+        <Card className="border-0 bg-gradient-to-br from-chart-3/5 to-chart-3/10 hover:from-chart-3/10 hover:to-chart-3/20 transition-all duration-300">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-label-md lg:text-label-lg font-medium text-foreground">Contacts</CardTitle>
+            <div className="flex h-8 w-8 lg:h-10 lg:w-10 items-center justify-center rounded-xl bg-chart-3/10 text-chart-3">
+              <Users className="h-4 w-4 lg:h-5 lg:w-5" />
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="text-heading-lg lg:text-display-sm font-bold text-foreground">0</div>
+            <p className="text-label-sm text-muted-foreground mt-1">
+              +0 from last month
+            </p>
+          </CardContent>
+        </Card>
+      </div>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">QR Scans</CardTitle>
-              <QrCode className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{vendor.qr_scan_count}</div>
-              <p className="text-xs text-muted-foreground">
-                +0 from last month
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Page Views</CardTitle>
-              <BarChart3 className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">0</div>
-              <p className="text-xs text-muted-foreground">
-                +0 from last month
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Contacts</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">0</div>
-              <p className="text-xs text-muted-foreground">
-                +0 from last month
-              </p>
-            </CardContent>
-          </Card>
+      {/* Quick Actions */}
+      <div className="space-y-4 lg:space-y-6">
+        <div className="flex items-center justify-between">
+          <h3 className="text-heading-md lg:text-heading-lg font-semibold text-foreground">Quick Actions</h3>
         </div>
 
-        {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Package className="h-5 w-5" />
-                <span>Products</span>
-              </CardTitle>
-              <CardDescription>
-                Manage your product catalog and inventory
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <p className="text-sm text-gray-600">
-                  Add products, organize categories, and manage your inventory.
-                </p>
-                <div className="flex space-x-2">
-                  <Button asChild>
-                    <Link href="/dashboard/products/new">
-                      <Plus className="h-4 w-4 mr-2" />
-                      Add Product
-                    </Link>
-                  </Button>
-                  <Button variant="outline" asChild>
-                    <Link href="/dashboard/products">View All</Link>
-                  </Button>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+          <Card className="group hover:shadow-modern-lg transition-all duration-300">
+            <CardHeader className="pb-4">
+              <div className="flex items-center space-x-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-chart-1/10 text-chart-1 group-hover:bg-chart-1/20 transition-colors">
+                  <Package className="h-6 w-6" />
+                </div>
+                <div>
+                  <CardTitle className="text-heading-md">Products</CardTitle>
+                  <CardDescription className="text-body-sm">
+                    Manage your catalog
+                  </CardDescription>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <QrCode className="h-5 w-5" />
-                <span>QR Code</span>
-              </CardTitle>
-              <CardDescription>
-                Share your catalog with QR codes
-              </CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <p className="text-sm text-gray-600">
-                  Download your QR code and track scan analytics.
-                </p>
-                <div className="flex space-x-2">
-                  <Button asChild>
-                    <Link href="/dashboard/qr-code">View QR Code</Link>
-                  </Button>
-                  <Button variant="outline" asChild>
-                    <Link href="/dashboard/analytics">Analytics</Link>
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Store className="h-5 w-5" />
-                <span>Profile</span>
-              </CardTitle>
-              <CardDescription>
-                Update your business information
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <p className="text-sm text-gray-600">
-                  Edit your business details, contact info, and settings.
-                </p>
-                <div className="flex space-x-2">
-                  <Button asChild>
-                    <Link href="/dashboard/profile">Edit Profile</Link>
-                  </Button>
-                  <Button variant="outline" asChild>
-                    <Link href="/dashboard/settings">Settings</Link>
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Getting Started */}
-        {vendor.status === 'pending' && (
-          <Card className="border-blue-200 bg-blue-50">
-            <CardHeader>
-              <CardTitle className="text-blue-900">Complete Your Setup</CardTitle>
-              <CardDescription className="text-blue-700">
-                Your account is pending approval. Complete these steps to activate your catalog.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="text-sm">Business profile created</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                  <span className="text-sm text-gray-600">Add your first product</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                  <span className="text-sm text-gray-600">Upload business logo</span>
-                </div>
-              </div>
-              <div className="mt-4">
-                <Button asChild>
-                  <Link href="/dashboard/products/new">Add Your First Product</Link>
+            <CardContent className="space-y-4">
+              <p className="text-body-sm text-muted-foreground leading-relaxed">
+                Add products, organize categories, and manage your inventory with ease.
+              </p>
+              <div className="flex flex-col sm:flex-row lg:flex-col space-y-2 sm:space-y-0 sm:space-x-2 lg:space-x-0 lg:space-y-2">
+                <Button asChild variant="gradient" size="sm" className="touch-manipulation">
+                  <Link href="/dashboard/products/new">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Product
+                  </Link>
+                </Button>
+                <Button variant="outline" size="sm" asChild className="touch-manipulation">
+                  <Link href="/dashboard/products">View All Products</Link>
                 </Button>
               </div>
             </CardContent>
           </Card>
-        )}
-      </main>
+
+          <Card className="group hover:shadow-modern-lg transition-all duration-300">
+            <CardHeader className="pb-4">
+              <div className="flex items-center space-x-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-chart-2/10 text-chart-2 group-hover:bg-chart-2/20 transition-colors">
+                  <QrCode className="h-6 w-6" />
+                </div>
+                <div>
+                  <CardTitle className="text-heading-md">QR Code</CardTitle>
+                  <CardDescription className="text-body-sm">
+                    Share your catalog
+                  </CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-body-sm text-muted-foreground leading-relaxed">
+                Download your QR code and track scan analytics to grow your reach.
+              </p>
+              <div className="flex flex-col sm:flex-row lg:flex-col space-y-2 sm:space-y-0 sm:space-x-2 lg:space-x-0 lg:space-y-2">
+                <Button asChild variant="gradient" size="sm" className="touch-manipulation">
+                  <Link href="/dashboard/qr-code">View QR Code</Link>
+                </Button>
+                <Button variant="outline" size="sm" asChild className="touch-manipulation">
+                  <Link href="/dashboard/analytics">View Analytics</Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="group hover:shadow-modern-lg transition-all duration-300">
+            <CardHeader className="pb-4">
+              <div className="flex items-center space-x-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-chart-4/10 text-chart-4 group-hover:bg-chart-4/20 transition-colors">
+                  <Store className="h-6 w-6" />
+                </div>
+                <div>
+                  <CardTitle className="text-heading-md">Profile</CardTitle>
+                  <CardDescription className="text-body-sm">
+                    Update your info
+                  </CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-body-sm text-muted-foreground leading-relaxed">
+                Edit your business details, contact info, and store settings.
+              </p>
+              <div className="flex flex-col sm:flex-row lg:flex-col space-y-2 sm:space-y-0 sm:space-x-2 lg:space-x-0 lg:space-y-2">
+                <Button asChild variant="gradient" size="sm" className="touch-manipulation">
+                  <Link href="/dashboard/profile">Edit Profile</Link>
+                </Button>
+                {/* <Button variant="outline" size="sm" asChild className="touch-manipulation">
+                  <Link href="/dashboard/settings">Settings</Link>
+                </Button> */}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      {/* Getting Started */}
+      {vendor.status === 'pending' && (
+        <Card className="border-info/20 bg-gradient-to-br from-info/5 to-info/10">
+          <CardHeader>
+            <div className="flex items-center space-x-3">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-info/10 text-info">
+                <Store className="h-6 w-6" />
+              </div>
+              <div>
+                <CardTitle className="text-heading-md text-foreground">Complete Your Setup</CardTitle>
+                <CardDescription className="text-muted-foreground">
+                  Complete these steps to activate your catalog and start selling.
+                </CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="space-y-4">
+              <div className="flex items-center space-x-4">
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-success text-success-foreground">
+                  <div className="h-2 w-2 rounded-full bg-success-foreground"></div>
+                </div>
+                <span className="text-body-sm font-medium text-foreground">Business profile created</span>
+              </div>
+              <div className="flex items-center space-x-4">
+                <div className="h-6 w-6 rounded-full border-2 border-border bg-muted"></div>
+                <span className="text-body-sm text-muted-foreground">Add your first product</span>
+              </div>
+              <div className="flex items-center space-x-4">
+                <div className="h-6 w-6 rounded-full border-2 border-border bg-muted"></div>
+                <span className="text-body-sm text-muted-foreground">Upload business logo</span>
+              </div>
+            </div>
+            <Button asChild variant="gradient" className="touch-manipulation">
+              <Link href="/dashboard/products/new">Add Your First Product</Link>
+            </Button>
+          </CardContent>
+        </Card>
+      )}
     </div>
   )
 }

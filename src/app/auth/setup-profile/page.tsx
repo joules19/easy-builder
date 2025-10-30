@@ -33,10 +33,7 @@ export default async function SetupProfilePage() {
       {/* Footer */}
       <div className="mt-8 text-center">
         <p className="text-sm text-gray-600">
-          Need help?{' '}
-          <Link href="/contact" className="text-blue-600 hover:underline">
-            Contact Support
-          </Link>
+          Need help? Support coming soon
         </p>
       </div>
     </div>
