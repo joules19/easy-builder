@@ -1,0 +1,1 @@
+{"version":1,"functions":{"/auth/login":{},"/auth/setup-profile":{},"/auth/signup":{},"/dashboard/analytics":{},"/dashboard/categories":{},"/dashboard":{},"/dashboard/products/[id]/edit":{},"/dashboard/products/new":{},"/dashboard/products":{},"/dashboard/profile":{},"/dashboard/qr-code":{},"/demo":{},"/vendors/[slug]":{}}}

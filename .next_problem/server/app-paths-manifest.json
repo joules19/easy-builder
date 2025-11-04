@@ -1,0 +1,21 @@
+{
+  "/api/upload/[id]/route": "app/api/upload/[id]/route.js",
+  "/api/contact-interaction/route": "app/api/contact-interaction/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/upload/route": "app/api/upload/route.js",
+  "/auth/callback/route": "app/auth/callback/route.js",
+  "/page": "app/page.js",
+  "/auth/signup/page": "app/auth/signup/page.js",
+  "/auth/setup-profile/page": "app/auth/setup-profile/page.js",
+  "/auth/login/page": "app/auth/login/page.js",
+  "/demo/page": "app/demo/page.js",
+  "/vendors/[slug]/page": "app/vendors/[slug]/page.js",
+  "/dashboard/products/new/page": "app/dashboard/products/new/page.js",
+  "/dashboard/categories/page": "app/dashboard/categories/page.js",
+  "/dashboard/products/page": "app/dashboard/products/page.js",
+  "/dashboard/analytics/page": "app/dashboard/analytics/page.js",
+  "/dashboard/products/[id]/edit/page": "app/dashboard/products/[id]/edit/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/dashboard/profile/page": "app/dashboard/profile/page.js",
+  "/dashboard/qr-code/page": "app/dashboard/qr-code/page.js"
+}

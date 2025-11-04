@@ -20,11 +20,11 @@ export function BackButton({
   const router = useRouter()
 
   const handleBack = () => {
-    // Check if there's history to go back to
-    if (window.history.length > 1) {
+    // Check if we're in browser environment and have history
+    if (typeof window !== 'undefined' && window.history.length > 1) {
       router.back()
     } else {
-      // Fallback to home page if no history
+      // Fallback to home page if no history or SSR
       router.push('/')
     }
   }
