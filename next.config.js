@@ -1,8 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    optimizeCss: true,
-  },
+  // Remove experimental CSS optimization that requires critters
+  experimental: {},
   
   images: {
     remotePatterns: [

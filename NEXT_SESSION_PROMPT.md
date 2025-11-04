@@ -10,7 +10,7 @@
 ✅ **Supabase Integration** - Database setup, migrations, RLS policies
 ✅ **QR Code System** - Generation, customization, download, tracking
 ✅ **Analytics Dashboard** - Complete with charts, stats, activity feed
-✅ **Vendor Profile Management** - Business info, hours, social media
+✅ **Vendor Profile Management** - Business info, hours, social media.
 ✅ **Professional UI/UX** - Responsive design, navigation, components
 ✅ **Product Creation** - Basic form with validation and image upload
 ✅ **Category Management** - Basic list display and quick-add form
