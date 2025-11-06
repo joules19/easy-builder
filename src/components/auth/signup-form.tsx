@@ -119,7 +119,7 @@ export function SignupForm() {
 
   if (success) {
     return (
-      <Card className="w-full max-w-md mx-auto border-0 bg-background/95 backdrop-blur shadow-modern-xl">
+      <Card className="w-full border-0 bg-background/95 backdrop-blur shadow-modern-xl">
         <CardHeader className="text-center pb-8">
           <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-success/10 text-success ring-1 ring-success/20">
             <Check className="h-8 w-8" />
@@ -149,7 +149,7 @@ export function SignupForm() {
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto border-0 bg-background/95 backdrop-blur shadow-modern-xl">
+    <Card className="w-full border-0 bg-background/95 backdrop-blur shadow-modern-xl">
       <CardHeader className="space-y-1 pb-8">
         <CardTitle className="text-heading-lg text-center text-foreground">Create your account</CardTitle>
         <CardDescription className="text-center text-muted-foreground">

@@ -11,14 +11,14 @@ export const metadata = {
 export default function SignupPage() {
   return (
     <AuthGuard requireAuth={false} redirectTo="/dashboard">
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background overflow-x-hidden">
         {/* Background decoration */}
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute inset-y-0 left-1/2 -z-10 ml-16 w-[200%] origin-bottom-right skew-x-[30deg] bg-gradient-to-tl from-background via-muted/20 to-background shadow-xl shadow-primary/10 ring-1 ring-primary/5" />
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute inset-y-0 left-1/2 -z-10 ml-16 w-[200%] origin-bottom-right skew-x-[30deg] bg-gradient-to-tl from-background via-muted/20 to-background shadow-xl shadow-primary/10 ring-1 ring-primary/5 hidden sm:block" />
         </div>
         
-        <div className="flex min-h-screen flex-col justify-center py-12 sm:px-6 lg:px-8">
-          <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="flex min-h-screen flex-col justify-center px-4 sm:px-6 lg:px-8 py-12">
+          <div className="w-full max-w-md mx-auto">
             {/* Logo */}
             <Link href="/" className="flex justify-center group">
               <div className="flex items-center space-x-3 transition-transform group-hover:scale-105">
@@ -37,7 +37,7 @@ export default function SignupPage() {
             </div>
           </div>
 
-          <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+          <div className="mt-8 w-full max-w-md mx-auto">
             <SignupForm />
           </div>
 

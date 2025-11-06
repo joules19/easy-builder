@@ -64,7 +64,7 @@ export function LoginForm() {
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto border-0 bg-background/95 backdrop-blur shadow-modern-xl">
+    <Card className="w-full border-0 bg-background/95 backdrop-blur shadow-modern-xl">
       <CardHeader className="space-y-1 pb-8">
         <CardTitle className="text-heading-lg text-center text-foreground">Sign in to your account</CardTitle>
         <CardDescription className="text-center text-muted-foreground">

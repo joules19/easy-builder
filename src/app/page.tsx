@@ -50,7 +50,7 @@ export default async function HomePage() {
               ) : (
                 // User is not logged in - show auth links
                 <>
-                  <Button asChild variant="ghost" className="text-muted-foreground hover:text-foreground">
+                  <Button asChild variant="ghost" className="hidden text-muted-foreground hover:text-foreground sm:block">
                     <Link href="/auth/login">Sign In</Link>
                   </Button>
                   <Button asChild variant="gradient" size="lg">
@@ -64,7 +64,7 @@ export default async function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-24 lg:py-32">
+      <section className="relative overflow-hidden py-16 sm:py-24 lg:py-32">
         {/* Background decoration */}
         <div className="absolute inset-0 -z-10">
           <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-gradient-to-tr from-background via-muted/20 to-background shadow-xl shadow-primary/10 ring-1 ring-primary/5" />
@@ -78,13 +78,13 @@ export default async function HomePage() {
               </div>
             </div>
             
-            <h1 className="text-display-lg lg:text-display-xl font-extrabold tracking-tight text-foreground mb-6">
+            <h1 className="text-display-md sm:text-display-lg lg:text-display-xl font-extrabold tracking-tight text-foreground mb-6">
               Create Your{' '}
               <span className="gradient-text">Digital Catalog</span>{' '}
               in Minutes
             </h1>
             
-            <p className="text-body-lg lg:text-heading-sm text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-body-md sm:text-body-lg lg:text-heading-sm text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
               Transform your business with a stunning online catalog. Showcase products, 
               share with QR codes, and connect with customers instantly. No technical skills required.
             </p>
@@ -92,20 +92,20 @@ export default async function HomePage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               {session ? (
                 hasVendorProfile ? (
-                  <Button asChild variant="gradient" size="xl" className="min-w-[200px]">
+                  <Button asChild variant="gradient" size="xl" className="w-full sm:w-auto sm:min-w-[200px]">
                     <Link href="/dashboard">Go to Dashboard</Link>
                   </Button>
                 ) : (
-                  <Button asChild variant="gradient" size="xl" className="min-w-[200px]">
+                  <Button asChild variant="gradient" size="xl" className="w-full sm:w-auto sm:min-w-[200px]">
                     <Link href="/auth/setup-profile">Complete Your Setup</Link>
                   </Button>
                 )
               ) : (
                 <>
-                  <Button asChild variant="gradient" size="xl" className="min-w-[200px]">
+                  <Button asChild variant="gradient" size="xl" className="w-full sm:w-auto sm:min-w-[200px]">
                     <Link href="/auth/signup">Start Free Today</Link>
                   </Button>
-                  <Button asChild variant="ghost" size="xl" className="min-w-[150px] text-muted-foreground">
+                  <Button asChild variant="ghost" size="xl" className="w-full sm:w-auto sm:min-w-[150px] text-muted-foreground">
                     <Link href="/auth/login">Sign In</Link>
                   </Button>
                 </>
@@ -130,7 +130,7 @@ export default async function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 lg:py-32 bg-muted/30">
+      <section className="py-16 sm:py-24 lg:py-32 bg-muted/30">
         <div className="container-responsive">
           <div className="mx-auto max-w-3xl text-center mb-16">
             <h2 className="text-display-sm lg:text-display-md font-bold text-foreground mb-6">
@@ -208,7 +208,7 @@ export default async function HomePage() {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-24 lg:py-32 bg-background">
+      <section className="py-16 sm:py-24 lg:py-32 bg-background">
         <div className="container-responsive">
           <div className="mx-auto max-w-3xl text-center mb-16">
             <h2 className="text-display-sm lg:text-display-md font-bold text-foreground mb-6">
@@ -278,7 +278,7 @@ export default async function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative overflow-hidden py-24 lg:py-32">
+      <section className="relative overflow-hidden py-16 sm:py-24 lg:py-32">
         {/* Background with gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-chart-4" />
         <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent" />
@@ -304,20 +304,20 @@ export default async function HomePage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               {session ? (
                 hasVendorProfile ? (
-                  <Button asChild size="xl" variant="secondary" className="min-w-[200px] shadow-modern-lg">
+                  <Button asChild size="xl" variant="secondary" className="w-full sm:w-auto sm:min-w-[200px] shadow-modern-lg">
                     <Link href="/dashboard">Manage Your Catalog</Link>
                   </Button>
                 ) : (
-                  <Button asChild size="xl" variant="secondary" className="min-w-[200px] shadow-modern-lg">
+                  <Button asChild size="xl" variant="secondary" className="w-full sm:w-auto sm:min-w-[200px] shadow-modern-lg">
                     <Link href="/auth/setup-profile">Complete Your Setup</Link>
                   </Button>
                 )
               ) : (
                 <>
-                  <Button asChild size="xl" variant="secondary" className="min-w-[200px] shadow-modern-lg">
+                  <Button asChild size="xl" variant="secondary" className="w-full sm:w-auto sm:min-w-[200px] shadow-modern-lg">
                     <Link href="/auth/signup">Create Your Catalog Now</Link>
                   </Button>
-                  <Button asChild size="xl" variant="ghost" className="min-w-[150px] text-white/90 hover:text-white hover:bg-white/10">
+                  <Button asChild size="xl" variant="ghost" className="w-full sm:w-auto sm:min-w-[150px] text-white/90 hover:text-white hover:bg-white/10">
                     <Link href="/auth/login">Sign In</Link>
                   </Button>
                 </>
